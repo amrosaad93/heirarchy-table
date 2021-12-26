@@ -5,19 +5,14 @@ type TableEntry = {
   [key: string]: string;
 };
 
-type TableKids = {
-  [key: string]: {
-    records: Array<any> | undefined;
-  };
-};
-
 interface TableRowProps {
-  content: any;
+  content: TableEntry;
   kids?: any;
   deleteCallback: (id_type: string, id_number: string) => void;
 }
 
 const TableRow: React.FC<TableRowProps> = ({ content, kids, deleteCallback }): JSX.Element => {
+  console.log(kids);
   const [isExpanded, setIsExpanded] = useState(false);
 
   const childKey = kids && Object.keys(kids).length > 0 ? Object.keys(kids)[0] : "none";
