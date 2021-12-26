@@ -4,18 +4,38 @@ table {
   width: 100%;
 }
 
-td,
 th {
-  border: 1px solid #dddddd;
+  background-color: #dddddd;
   text-align: left;
   padding: 8px;
 }
 
-tr:nth-child(even) {
-  background-color: #dddddd;
+td {
+  border: 1px solid #9d9d9d;
+  text-align: left;
+  padding: 8px;
+}
+
+td h1 {
+  cursor: pointer;
+}
+
+.header {
+  text-align: center;
 }
 
 .kids-container {
-  padding: 30px 50px;
-  margin-bottom: 100px;
+  padding: 30px 10px;
+  margin-bottom: 10px;
+}
+
+.delete {
+  border-radius: 5px;
+  padding: 5px;
+  font-size: 16;
+  font-weight: 600;
+  color: #fff;
+  background-color: rgb(213, 21, 21);
+  cursor: pointer;
+  text-align: center;
 }

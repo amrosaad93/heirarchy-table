@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Table from "./Table";
 
 type TableEntry = {
@@ -14,32 +14,38 @@ type TableKids = {
 interface TableRowProps {
   content: any;
   kids?: any;
+  deleteCallback: (id_type: string, id_number: string) => void;
 }
 
-const TableRow: React.FC<TableRowProps> = ({ content, kids }): JSX.Element => {
+const TableRow: React.FC<TableRowProps> = ({ content, kids, deleteCallback }): JSX.Element => {
+  const [isExpanded, setIsExpanded] = useState(false);
+
   const childKey = kids && Object.keys(kids).length > 0 ? Object.keys(kids)[0] : "none";
-  console.log(childKey !== "none" ? kids[childKey].records : "No Child here");
 
   return (
-    <div>
-      <table>
-        <thead>
-          <tr>
-            {Object.keys(content).map((entry, index) => (
-              <th key={index}>{entry}</th>
-            ))}
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            {Object.keys(content).map((entry, index) => (
-              <td key={index}>{content[entry]}</td>
-            ))}
-          </tr>
-          <div className="kids-container">{childKey !== "none" && <Table data={kids[childKey].records} />}</div>
-        </tbody>
-      </table>
-    </div>
+    <>
+      <tr>
+        <td>{childKey !== "none" && <h1 onClick={() => setIsExpanded(!isExpanded)}>{isExpanded ? "-" : "+"}</h1>}</td>
+        {Object.keys(content).map((entry, index) => (
+          <td key={index}>{content[entry]}</td>
+        ))}
+        <td
+          onClick={() => {
+            setIsExpanded(false);
+            deleteCallback(Object.keys(content)[0], content[Object.keys(content)[0]]);
+          }}
+        >
+          <p className="delete">Delete</p>
+        </td>
+      </tr>
+      {childKey !== "none" && isExpanded && (
+        <tr>
+          <td colSpan={8}>
+            <div className="kids-container">{<Table data={kids[childKey].records} />}</div>
+          </td>
+        </tr>
+      )}
+    </>
   );
 };
 
