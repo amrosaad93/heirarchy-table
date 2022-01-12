@@ -12,7 +12,6 @@ interface TableRowProps {
 }
 
 const TableRow: React.FC<TableRowProps> = ({ content, kids, deleteCallback }): JSX.Element => {
-  console.log(kids);
   const [isExpanded, setIsExpanded] = useState(false);
 
   const childKey = kids && Object.keys(kids).length > 0 ? Object.keys(kids)[0] : "none";
